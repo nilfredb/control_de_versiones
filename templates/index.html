@@ -27,7 +27,7 @@
                 <button type="submit">Editar</button>
             </form>
 
-            <a href="/eliminar/{{ usuario.id }}">Eliminar</a>
+            <a href="/eliminar/{{ usuario.id }}" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">Eliminar</a>
         </li>
         {% endfor %}
     </ul>
