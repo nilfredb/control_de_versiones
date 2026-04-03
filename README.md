@@ -6,7 +6,7 @@ Proyecto CRUD de usuarios desarrollado con Python (Flask), aplicando correctamen
 
 ## 📸 Vista del proyecto
 
-![Vista del proyecto](assets/imagen.png)
+![Vista del proyecto](imagen.png)
 
 ---
 
