@@ -14,16 +14,22 @@ def index():
 @app.route("/crear", methods=["POST"])
 def crear():
     global contador_id
-    nombre = request.form.get("nombre")
-    correo = request.form.get("correo")
+    nombre = request.form.get("nombre", "").strip()
+    correo = request.form.get("correo", "").strip()
 
-    if nombre and correo:
-        usuarios.append({
-            "id": contador_id,
-            "nombre": nombre,
-            "correo": correo
-        })
-        contador_id += 1
+    if not nombre or not correo:
+        return redirect(url_for("index"))
+
+    correo_ya_existe = any(u["correo"].lower() == correo.lower() for u in usuarios)
+    if correo_ya_existe:
+        return redirect(url_for("index"))
+
+    usuarios.append({
+        "id": contador_id,
+        "nombre": nombre,
+        "correo": correo
+    })
+    contador_id += 1
 
     return redirect(url_for("index"))
 
