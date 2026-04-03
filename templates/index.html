@@ -4,8 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD de Usuarios</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: none;
+            background-color: #3b82f6;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1e293b;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #334155;
+        }
+
+        tr:nth-child(even) {
+            background-color: #1e293b;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #0f172a;
+        }
+
+        a {
+            color: #f87171;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        li {
+            background-color: #22c55e;
+            color: black;
+            margin: 5px auto;
+            padding: 8px;
+            width: fit-content;
+            border-radius: 5px;
+        }
+
+        p {
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
+
     <h1>CRUD de Usuarios</h1>
 
     {% with messages = get_flashed_messages() %}
@@ -30,7 +125,7 @@
     <p>Total de usuarios: {{ usuarios|length }}</p>
 
     {% if usuarios %}
-    <table border="1">
+    <table>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -62,5 +157,6 @@
     {% else %}
     <p>No hay usuarios registrados.</p>
     {% endif %}
+
 </body>
 </html>
