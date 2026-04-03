@@ -8,6 +8,16 @@
 <body>
     <h1>CRUD de Usuarios</h1>
 
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
     <h2>Crear usuario</h2>
     <form action="/crear" method="POST">
         <input type="text" name="nombre" placeholder="Nombre" required>
@@ -15,36 +25,42 @@
         <button type="submit">Crear</button>
     </form>
 
-<h2>Lista de usuarios</h2>
+    <h2>Lista de usuarios</h2>
 
-<p>Total de usuarios: {{ usuarios|length }}</p>
+    <p>Total de usuarios: {{ usuarios|length }}</p>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Correo</th>
-        <th>Acciones</th>
-    </tr>
+    {% if usuarios %}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+        </tr>
 
-    {% for usuario in usuarios %}
-    <tr>
-        <td>{{ usuario.id }}</td>
-        <td>{{ usuario.nombre }}</td>
-        <td>{{ usuario.correo }}</td>
-        <td>
-            <form action="/editar/{{ usuario.id }}" method="POST" style="display:inline;">
-                <input type="text" name="nombre" value="{{ usuario.nombre }}" required>
-                <input type="email" name="correo" value="{{ usuario.correo }}" required>
-                <button type="submit" onclick="return confirm('¿Seguro que deseas editar este usuario?')">
-                    Editar
-                </button>
-            </form>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.correo }}</td>
+            <td>
+                <form action="/editar/{{ usuario.id }}" method="POST" style="display:inline;">
+                    <input type="text" name="nombre" value="{{ usuario.nombre }}" required>
+                    <input type="email" name="correo" value="{{ usuario.correo }}" required>
+                    <button type="submit" onclick="return confirm('¿Seguro que deseas editar este usuario?')">
+                        Editar
+                    </button>
+                </form>
 
-            <a href="/eliminar/{{ usuario.id }}">Eliminar</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+                <a href="/eliminar/{{ usuario.id }}" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No hay usuarios registrados.</p>
+    {% endif %}
 </body>
 </html>
