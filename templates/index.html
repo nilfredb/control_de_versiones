@@ -24,7 +24,9 @@
             <form action="/editar/{{ usuario.id }}" method="POST" style="display:inline;">
                 <input type="text" name="nombre" value="{{ usuario.nombre }}" required>
                 <input type="email" name="correo" value="{{ usuario.correo }}" required>
-                <button type="submit">Editar</button>
+                <button type="submit" onclick="return confirm('¿Seguro que deseas editar este usuario?')">
+                    Editar
+                </button>
             </form>
 
             <a href="/eliminar/{{ usuario.id }}">Eliminar</a>
