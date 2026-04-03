@@ -15,12 +15,24 @@
         <button type="submit">Crear</button>
     </form>
 
-    <h2>Lista de usuarios</h2>
-    <ul>
-        {% for usuario in usuarios %}
-        <li>
-            <strong>{{ usuario.nombre }}</strong> - {{ usuario.correo }}
+<h2>Lista de usuarios</h2>
 
+<p>Total de usuarios: {{ usuarios|length }}</p>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.correo }}</td>
+        <td>
             <form action="/editar/{{ usuario.id }}" method="POST" style="display:inline;">
                 <input type="text" name="nombre" value="{{ usuario.nombre }}" required>
                 <input type="email" name="correo" value="{{ usuario.correo }}" required>
@@ -28,8 +40,9 @@
             </form>
 
             <a href="/eliminar/{{ usuario.id }}">Eliminar</a>
-        </li>
-        {% endfor %}
-    </ul>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 </body>
 </html>
