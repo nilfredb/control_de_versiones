@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Usuarios</title>
+</head>
+<body>
+    <h1>CRUD de Usuarios</h1>
+
+    <h2>Crear usuario</h2>
+    <form action="/crear" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="email" name="correo" placeholder="Correo" required>
+        <button type="submit">Crear</button>
+    </form>
+
+    <h2>Lista de usuarios</h2>
+    <ul>
+        {% for usuario in usuarios %}
+        <li>
+            <strong>{{ usuario.nombre }}</strong> - {{ usuario.correo }}
+
+            <form action="/editar/{{ usuario.id }}" method="POST" style="display:inline;">
+                <input type="text" name="nombre" value="{{ usuario.nombre }}" required>
+                <input type="email" name="correo" value="{{ usuario.correo }}" required>
+                <button type="submit">Editar</button>
+            </form>
+
+            <a href="/eliminar/{{ usuario.id }}">Eliminar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,53 @@
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+usuarios = []
+contador_id = 1
+
+
+@app.route("/")
+def index():
+    return render_template("index.html", usuarios=usuarios)
+
+
+@app.route("/crear", methods=["POST"])
+def crear():
+    global contador_id
+    nombre = request.form.get("nombre")
+    correo = request.form.get("correo")
+
+    if nombre and correo:
+        usuarios.append({
+            "id": contador_id,
+            "nombre": nombre,
+            "correo": correo
+        })
+        contador_id += 1
+
+    return redirect(url_for("index"))
+
+
+@app.route("/eliminar/<int:id>")
+def eliminar(id):
+    global usuarios
+    usuarios = [u for u in usuarios if u["id"] != id]
+    return redirect(url_for("index"))
+
+
+@app.route("/editar/<int:id>", methods=["POST"])
+def editar(id):
+    nombre = request.form.get("nombre")
+    correo = request.form.get("correo")
+
+    for usuario in usuarios:
+        if usuario["id"] == id:
+            usuario["nombre"] = nombre
+            usuario["correo"] = correo
+            break
+
+    return redirect(url_for("index"))
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
